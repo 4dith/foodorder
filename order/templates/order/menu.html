@@ -1,0 +1,58 @@
+{% extends "order/layout.html" %}
+{% load static %}
+
+
+{% block title %}
+EatRite | {{ restaurant.name }}
+{% endblock %}
+
+{% block content %}
+
+<div id="menu">
+    {% if category %}
+    <h3><a href="{% url 'order:index' %}">Home</a> > <a href="{% url 'order:category' category.slug %}">{{ category.name }}</a> ></h3>
+    <h1><a href="{% url 'order:menu' restaurant.slug %}">{{ restaurant.name }}</a></h1>
+    {% else %}
+    <h3><a href="{% url 'order:index' %}">Home</a> > </h3>
+    <h1>{{ restaurant.name }}</h1>
+    {% endif %}
+
+    <ul>
+        {% for item in restaurant.items.all %}
+        {% if not category or item.category == category %}
+        <li class="menu-item" data-slug="{{ item.slug }}" data-price="{{ item.price }}">
+            <div>
+                {% if item.veg %}
+                <b>🟩 {{ item.category }}</b>
+                {% else %}
+                <b>🟥 {{ item.category }}</b>
+                {% endif %}
+                <h2>{{ item.name }}</h2>
+                <h3>₹{{ item.price }}</h3>
+
+                <button class="menu-button add-button">ADD</button>
+                <button class="menu-button clear-button">CLEAR</button>
+            </div>
+            <img src="{{ item.picture.url }}" alt="Picture of {{ item.name }}">
+        </li>
+        {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+    <div id="cart">
+        <b><span id="cart-count">0</span> items added (₹<span id="cart-total">0</span>)</b>
+        <form id="cart-form" action="{% url 'order:cart' %}" method="post">
+            {% csrf_token %}
+            <input id="cart-data" type="hidden" name="cart">
+            <button id="cart-button" type="submit"><b>VIEW CART 🛒</b></button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'order/cart.js' %}"></script>
+{% endblock %}

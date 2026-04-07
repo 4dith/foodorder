@@ -1,0 +1,35 @@
+{% extends "order/layout.html" %}
+
+{% block title %}
+EatRite | History
+{% endblock %}
+
+{% block content %}
+<div id="order-content">
+    <div>
+        <h1>Order History</h1>
+
+        <table>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Restaurant</th>
+                <th>Accepted</th>
+                <th>Delivered</th>
+            </tr>
+
+            {% for order in orders.reverse %}
+            <tr>
+                <td>{{ order.placed_at.date }}</td>
+                <td>{{ order.placed_at.time }}</td>
+                <td>{{ order.restaurant.name }}</td>
+                <td>✓</td>
+                <td>✓</td>
+                <!-- <td>{{ order.accepted }}</td> -->
+                <!-- <td>{{ order.delivered }}</td> -->
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

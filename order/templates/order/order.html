@@ -1,0 +1,54 @@
+{% extends "order/layout.html" %}
+{% load math_filters %}
+{% load static %}
+
+{% block title %}
+EatRite | Order
+{% endblock %}
+
+{% block content %}
+<div id="order-content">
+    <div>
+        <h1 id="restaurant-heading" data-restaurant="{{ restaurant.slug }}">Order from {{ restaurant.name }}</h1>
+
+        <table>
+            <tr>
+                <th>Order</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Cost</th>
+            </tr>
+
+            {% for item in cart %}
+            <div class="order-item" data-slug="{{ item.item.slug }}" data-quantity="{{ item.quantity }}"
+                data-price="{{ item.item.price }}">
+                <tr>
+                    <td>{{ item.item.name }}</td>
+                    <td>₹{{ item.item.price }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>₹{{ item.item.price|multiply:item.quantity }}</td>
+                </tr>
+            </div>
+            {% endfor %}
+
+        </table>
+
+        <p>Total: ₹<b id="order-total"></b></p>
+
+        <div id="order-page-buttons">
+            <form id="order-form" action="{% url 'order:order' %}" method="post">
+                {% csrf_token %}
+                <input id="order-restaurant" type="hidden" name="restaurant">
+                <input id="order-data" type="hidden" name="order">
+                <button id="order-button" type="submit">Order</button>
+            </form>
+
+            <button id="back-button" onclick="window.history.go(-1)">Back</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'order/order.js' %}"></script>
+{% endblock %}

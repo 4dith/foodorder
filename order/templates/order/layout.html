@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'order/style.css' %}">
+</head>
+
+<body>
+    <header>
+        <a href="{% url 'order:index' %}">
+            <div id="brand">
+                <img src="{% static 'order/logo.png' %}" alt="EatRite Logo">
+                <p>EatRite</p>
+            </div>
+        </a>
+
+        <div id="header-right">
+            {% if search %}
+                <form id="search-form" action="{% url 'order:search' %}" role="search">
+                    <input type="search" name="search" placeholder="Search for food or restaurants">
+                </form>
+            {% endif %}
+
+            <p>Hello, {{ user.first_name }}</p>
+            
+            <a href="{% url 'order:history' %}">History</a>
+            <a href="{% url 'users:logout' %}">Logout</a>
+        </div>
+    </header>
+
+    {% block nav %}
+
+    {% endblock %}
+
+    <main>
+        {% block content %}
+
+        {% endblock %}
+    </main>
+
+    <footer>
+        {% block footer %}
+
+        {% endblock %}
+    </footer>
+
+    {% block script %}{% endblock %}
+</body>
+
+</html>

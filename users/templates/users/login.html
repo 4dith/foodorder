@@ -1,0 +1,18 @@
+{% extends "users/layout.html" %}
+
+{% block title %}
+    EatRite | Sign In
+{% endblock %}
+
+{% block formid %}login-form{% endblock %}
+
+{% block formaction %}{% url 'users:login' %}{% endblock %}
+
+{% block content %}
+    <div>
+        <input id="phone" name="phone" type="tel" placeholder="Enter your phone number">
+        <input type="submit" value="Login">
+    </div>
+
+    <p>Don't have an account? <a href="{% url 'users:register' %}">Register</a></p>
+{% endblock %}

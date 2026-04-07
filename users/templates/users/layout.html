@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'order/style.css' %}">
+</head>
+
+<body class="user-content">
+    <form class="user-forms" id="{% block formid %}{% endblock %}" action="{% block formaction %}{% endblock %}"
+        method="post">
+
+        {% csrf_token %}
+
+        <div id="brand">
+            <img src="{% static 'order/logo.png' %}" alt="">
+            <p>EatRite</p>
+        </div>
+
+        {% if message %}
+            <div id="message">{{ message }}</div>
+        {% endif %}
+
+        {% block content %}
+
+        {% endblock %}
+    </form>
+</body>
+
+</html>

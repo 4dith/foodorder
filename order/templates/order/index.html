@@ -1,0 +1,46 @@
+{% extends "order/layout.html" %}
+
+{% block title %}
+EatRite | Online Food Ordering
+{% endblock %}
+
+{% block nav %}
+<nav>
+    <ul>
+        {% for category in categories %}
+        <a href="{% url 'order:category' category.slug %}">
+        <li class="category-item">
+
+            <img src="{{ category.picture.url }}" alt="{{ category.name }}">
+            {{ category.name }}
+        </li>
+         </a>
+
+        {% endfor %}
+    </ul>
+</nav>
+{% endblock %}
+
+{% block content %}
+{% if category %}
+<h1 id="title">Top Restaurants: {{ category.name }}</h1>
+{% elif searchmessage %}
+<h1 id="title">{{ searchmessage }}</h1>
+{% else %}
+<h1 id="title">Top Restaurants in Tadepalligudem</h1>
+{% endif %}
+
+<ul id="restaurants">
+    {% for restaurant in restaurants %}
+    <li>
+        <img class="restaurant-image" src="{{ restaurant.picture.url }}" alt="{{ restaurant.name }}">
+        
+        <div class="restaurant-details">
+            <h2><a href="{% if category %}{% url 'order:category_menu' restaurant.slug category.slug %}{% else %}{% url 'order:menu' restaurant.slug %}{% endif %}">{{ restaurant.name }}</a></h2>
+            <h3>{{ restaurant.address }} | {{ restaurant.rating }} ⭐</h3>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
