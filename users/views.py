@@ -16,14 +16,18 @@ def login_view(request):
             phone = PhoneNumber.from_string(request.POST["phone"], region="IN")
             if phone.is_valid():
                 try:
-                    user = authenticate(request, username=phone.national_number, password=str(phone.national_number))
+                    password = request.POST["password"]
+                    if not password:
+                        return render(request, "users/login.html", {"message": "Enter password"})
+                    
+                    user = authenticate(request, username=phone.national_number, password=password)
                 except:
                     user = None
                 if user is not None:
                     login(request, user)
                     return HttpResponseRedirect(reverse("order:index"))
                 else:
-                    return render(request, "users/login.html", {"message": "You are not registered."})
+                    return render(request, "users/login.html", {"message": "Invalid credentials."})
             else:
                 return render(request, "users/login.html", {"message": "Enter a valid Indian phone number."})
         except:
@@ -51,14 +55,24 @@ def register_view(request):
         if not name:
             return render(request, "users/register.html", {"message": "Enter your name."})
         
+        password = request.POST["password"]
+        if not password:
+            return render(request, "users/register.html", {"message": "Enter a password."})
+        elif len(password) < 8:
+            return render(request, "users/register.html", {"message": 'Password should be at least 8 characters.'})
+        
+        confirmation = request.POST["confirmation"]
+        if confirmation != password:
+            return render(request, "users/register.html", {"message": "Password does not match confirmation."})
+        
         try:
             user = User.objects.get(username=phone.national_number)
         except:
             user = None
 
         if user is None:
-            try:
-                user = User.objects.create_user(username=phone.national_number, password=str(phone.national_number))
+            try:                
+                user = User.objects.create_user(username=phone.national_number, password=password)
                 user.first_name = name
                 user.save()
             except:

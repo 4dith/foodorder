@@ -9,10 +9,9 @@
 {% block formaction %}{% url 'users:login' %}{% endblock %}
 
 {% block content %}
-    <div>
-        <input id="phone" name="phone" type="tel" placeholder="Enter your phone number">
-        <input type="submit" value="Login">
-    </div>
+    <input id="phone" name="phone" type="tel" placeholder="Enter your phone number">
+    <input id="password" name="password" type="password" placeholder="Enter your password">
+    <input type="submit" value="Login">
 
     <p>Don't have an account? <a href="{% url 'users:register' %}">Register</a></p>
 {% endblock %}

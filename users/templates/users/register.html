@@ -11,6 +11,8 @@
 {% block content %}
     <input name="name" type="text" placeholder="Enter your name">
     <input name="phone" type="tel" placeholder="Enter your phone number">
+    <input name="password" type="password" placeholder="Enter your password">
+    <input name="confirmation" type="password" placeholder="Confirm your password">
     <input type="submit" value="Register">
 
     <p>Have an account? <a href="{% url 'users:login' %}">Sign In</a></p>
