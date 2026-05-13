@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'localhost'
+    'https://foodorder-7vly.onrender.com'
 ]
 
 
