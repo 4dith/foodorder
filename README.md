@@ -1,9 +1,13 @@
 # Online Food Ordering System
 
+Deployed at [https://foodorder-darh.onrender.com](https://foodorder-darh.onrender.com)
+
 ## 👥 Team Members
-* **Adithya Venkatesh** (423102)
+* **Adithya Venkatesh** (423105)
 * **R Neti** (423173)
 * **Aaryan Shyam Pillai** (423102)
+
+**Note:** The project is a work in progress. Some of the features listed below are yet to be implemented and represent the eventual vision of this project. Currently the website facilitates search, menu browsing, ordering and order history.
 
 ## 📖 About the Project
 This project is a scalable, multi-sided marketplace designed to connect Customers, Restaurant Partners, and Delivery Riders. The system facilitates menu browsing, secure order placement, payment processing, and real-time delivery tracking.
