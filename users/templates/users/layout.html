@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} {% endblock %}</title>
+    <title>FoodOrder | {% block title %}{% endblock %}</title>
 
     <link rel="stylesheet" href="{% static 'order/style.css' %}">
 </head>
@@ -19,7 +19,7 @@
 
         <div id="brand">
             <img src="{% static 'order/logo.png' %}" alt="">
-            <p>EatRite</p>
+            <p>FoodOrder</p>
         </div>
 
         {% if message %}
